@@ -1,0 +1,15 @@
+GET http://localhost:81/task26/api/contact HTTP/1.1
+
+###
+
+POST http://localhost:81/task26/api/contact/create HTTP/1.1
+content-type: application/json
+
+{
+   "id": "1",
+  "phone": "1234567890",
+  "email": "email",
+  "location": "locatino",
+  "map_url": "map"
+}
+###
