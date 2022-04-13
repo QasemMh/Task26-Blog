@@ -106,7 +106,20 @@ class PostController extends BaseController
         if (strtoupper($this->RequestMethod) == 'POST') {
             try {
                 $postModel = new Post();
-                $input = (array) json_decode(file_get_contents('php://input'), TRUE);
+
+                //save image to database and server
+                $path = "";
+                if ($_FILES["path"]) {
+                    $filename = $_FILES["path"]["name"];
+                    $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                    $tempName = $_FILES["path"]["tmp_name"];
+                    $path   = uniqid(true) . "." . $ext;
+                    move_uploaded_file($tempName, "D:\\Program File\\xampp\htdocs\\task26\image\\" . $path);
+                }
+
+                //get text values
+                $input = $_POST;
+                $input += ["path" => $path];
 
                 $isCreated = $postModel->create($input);
 
@@ -149,9 +162,19 @@ class PostController extends BaseController
         if (strtoupper($this->RequestMethod) == 'POST') {
             try {
                 $postModel = new  Post();
-                $input = (array) json_decode(file_get_contents('php://input'), TRUE);
-                $isUpdate = $postModel->update($input, $id);
+                //get text values
+                $input = $_POST;
+                $input += ["path" => $input["path2"]];
+                if (isset($_FILES["path"]) && $_FILES["path"]["error"] == UPLOAD_ERR_OK) {
+                    $filename = $_FILES["path"]["name"];
+                    $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                    $tempName = $_FILES["path"]["tmp_name"];
+                    $path   = uniqid(true) . "." . $ext;
+                    move_uploaded_file($tempName, "D:\\Program File\\xampp\htdocs\\task26\image\\" . $path);
+                    $input["path"] = $path;
+                }
 
+                $isUpdate = $postModel->update($input, $id);
                 if ($isUpdate) {
                     $responseData = json_encode(["message" => "post Updated"]);
                 } else {

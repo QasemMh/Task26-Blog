@@ -16,12 +16,14 @@ class Post extends Database
     p.author_id ,
     u.name,
     p.category_id ,
-    p.path 
+    p.path ,
+    c.name category
 FROM
      post p
 INNER JOIN users u
  ON  p.author_id = u.id
-        ";
+ Inner Join category c On c.id=p.category_id
+  ORDER BY p.createAt DESC";
         // prepare query statement
         $stmt = $this->conn->prepare($query);
         // execute query
@@ -32,8 +34,7 @@ INNER JOIN users u
     public function getBy($id)
     {
 
-        $query = "
-        SELECT
+        $query = "  SELECT
         p.id ,
         p.title ,
         p.content ,
@@ -41,12 +42,14 @@ INNER JOIN users u
         p.author_id ,
         u.name,
         p.category_id ,
-        p.path 
+        p.path ,
+        c.name category
     FROM
          post p
     INNER JOIN users u
-     ON  p.author_id = u.id 
-     WHERE p.id=:id";
+     ON  p.author_id = u.id
+     Inner Join category c On c.id=p.category_id
+      WHERE p.id=:id";
         // prepare query statement
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
@@ -58,6 +61,9 @@ INNER JOIN users u
 
     public function create($input = [])
     {
+
+        //$content = htmlentities($input["content"]);
+        $content = $input["content"];
 
         $query = "
         INSERT INTO post(
@@ -72,7 +78,7 @@ INNER JOIN users u
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(":title", $input["title"]);
-        $stmt->bindParam(":content", $input["content"]);
+        $stmt->bindParam(":content", $content);
         $stmt->bindParam(":author_id", $input["author_id"]);
         $stmt->bindParam(":category_id", $input["category_id"]);
         $stmt->bindParam(":path", $input["path"]);
@@ -89,6 +95,9 @@ INNER JOIN users u
 
     public function update($input = [], $id)
     {
+        //  $content = htmlentities($input["content"]);
+        $content = $input["content"];
+
         $query = "UPDATE POST 
         SET title= :title ,
         content=:content,
@@ -100,7 +109,7 @@ INNER JOIN users u
         // prepare query statement
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":title", $input["title"]);
-        $stmt->bindParam(":content", $input["content"]);
+        $stmt->bindParam(":content", $content);
         $stmt->bindParam(":author_id", $input["author_id"]);
         $stmt->bindParam(":category_id", $input["category_id"]);
         $stmt->bindParam(":path", $input["path"]);

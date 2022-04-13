@@ -22,3 +22,4 @@ require_once PROJECT_ROOT_PATH . "\Models\PostComment.php";
 require_once PROJECT_ROOT_PATH . "\Models\Home.php";
 require_once PROJECT_ROOT_PATH . "\Models\About.php";
 require_once PROJECT_ROOT_PATH . "\Models\Contact.php";
+require_once PROJECT_ROOT_PATH . "\Models\UserMsg.php";

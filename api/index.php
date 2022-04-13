@@ -127,8 +127,6 @@ if (CONTROLLER == "category") {
 // api/post/create
 // api/post/update/{id}
 // api/post/delete/{id}
-
-
 if (CONTROLLER == "post") {
     //require controller
     require_once PROJECT_ROOT_PATH . "\Controller\postController.php";
@@ -223,8 +221,61 @@ if (CONTROLLER == "comments") {
     exit();
 }
 
+//check if user message controller is called
+// api/message
+// api/message/create
+// api/message/update/{id}
+// api/message/delete/{id}
+if (CONTROLLER == "message") {
+    //require controller
+    require_once PROJECT_ROOT_PATH . "\Controller\UserMsgController.php";
+    $userMsg = new userMsgController();
+
+    //ACTION is Action method >>  api/message/{ActionMethod}/{ID}
+    //ID is id
+    if (defined("ACTION")) :
+        //if equal create, then create user
+        if (ACTION === "create") :
+            $userMsg->Create();
+        //else, it is mean the action method(details,update,delete) is call
+        // all these methods required {ID}
+        else :
+            //check if {ID} is set
+            if (defined("ID")) :
+                //choose action method
+                //api/message/{ACTION_METHOD}/{ID}
+                switch (ACTION):
+                    case "details":
+                        $userMsg->Details(ID);
+                        break;
+                    case "update":
+                        $userMsg->Update(ID);
+                        break;
+                    case "delete":
+                        $userMsg->Delete(ID);
+                        break;
+                endswitch;
+            //if {ID} not set
+            else :
+                __Exit();
+            endif;
+        endif;
+    //if there no action method called then its mean get all data: INDEX
+    //http://localhost:81/POB-TASKS/task23/api/message
+    else :
+        $userMsg->Index();
+    endif;
+
+    exit();
+}
 
 
+
+
+
+
+
+/* */
 
 //check if Home controller is called
 // api/home
@@ -250,8 +301,6 @@ if (CONTROLLER == "home") {
     }
     exit();
 }
-
-
 //check if about controller is called
 // api/about
 // api/about/create
@@ -276,8 +325,6 @@ if (CONTROLLER == "about") {
     }
     exit();
 }
-
-
 if (CONTROLLER == "contact") {
     //require controller
     require_once PROJECT_ROOT_PATH . "\Controller\ContactController.php";
