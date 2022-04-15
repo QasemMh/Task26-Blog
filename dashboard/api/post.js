@@ -34,7 +34,8 @@ $(function () {
        }>Delete</button>
       <button class="btn btn-sm btn-secondary view_item" data-id=${
         item.id
-      }>View</button></td>
+      }>View</button>
+      </td>
       </tr>`;
         }
 

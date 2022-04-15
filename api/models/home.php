@@ -21,10 +21,10 @@ class Home extends Database
     {
 
         if ($this->getAll()->rowCount() > 0) {
-            $this->update($input);
-        } else {
-
-            $query = "INSERT INTO 
+            $this->delete();
+        }
+        
+        $query = "INSERT INTO 
                     home(id, 
                     tap_title,
                     logo_name,
@@ -32,18 +32,17 @@ class Home extends Database
                     insta_url,
                     twitter_url) 
                     VALUES(NULL,:tap,:logo,:facebook,:insta,:twitter)";
-            // prepare query statement
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(":tap", $input["tap"]);
-            $stmt->bindParam(":logo", $input["logo"]);
-            $stmt->bindParam(":facebook", $input["facebook"]);
-            $stmt->bindParam(":insta", $input["insta"]);
-            $stmt->bindParam(":twitter", $input["twitter"]);
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":tap", $input["tap"]);
+        $stmt->bindParam(":logo", $input["logo"]);
+        $stmt->bindParam(":facebook", $input["facebook"]);
+        $stmt->bindParam(":insta", $input["insta"]);
+        $stmt->bindParam(":twitter", $input["twitter"]);
 
 
-            // execute query
-            return $stmt->execute();
-        }
+        // execute query
+        return $stmt->execute();
     }
 
 

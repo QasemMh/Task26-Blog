@@ -21,26 +21,25 @@ class Contact extends Database
     {
 
         if ($this->getAll()->rowCount() > 0) {
-            $this->update($input);
-        } else {
+            $this->delete();
+        }
 
-            $query = "INSERT INTO 
+        $query = "INSERT INTO 
                     concat(id, 
                     phone,
                     email,
                     location, map_url)
-                    VALUES(NULL,:title,:content,:path)";
-            // prepare query statement
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(":phone", $input["phone"]);
-            $stmt->bindParam(":location", $input["location"]);
-            $stmt->bindParam(":email", $input["email"]);
-            $stmt->bindParam(":map_url", $input["map_url"]);
+                    VALUES(NULL,:phone,:email,:location,:map_url)";
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":phone", $input["phone"]);
+        $stmt->bindParam(":location", $input["location"]);
+        $stmt->bindParam(":email", $input["email"]);
+        $stmt->bindParam(":map_url", $input["map_url"]);
 
 
-            // execute query
-            return $stmt->execute();
-        }
+        // execute query
+        return $stmt->execute();
     }
 
 

@@ -58,6 +58,47 @@ class CommentController extends BaseController
             );
         }
     }
+    public function CommentsCount()
+    {
+        $this->RequestMethod = $_SERVER["REQUEST_METHOD"];
+        $arrQueryStringParams = $this->getQueryStringParams();
+
+        if (strtoupper($this->RequestMethod) == 'GET') {
+
+            try {
+                $CommentModel = new PostComment();
+                $arrComment = $CommentModel->getCommentsCount()->fetchAll(PDO::FETCH_ASSOC);
+                $responseData = json_encode($arrComment);
+            } catch (Error $e) {
+                $this->SetError(
+                    $e->getMessage() . 'Something went wrong!please contact support.',
+                    'HTTP/1.1 500 Internal Server Error'
+                );
+            }
+        } else {
+            $this->SetError("Method not supported", "HTTP/1.1 422 Unprocessable Entity");
+        }
+
+
+        // send output
+        if (!$this->ErrorDesc) {
+            $this->sendOutput(
+                $responseData,
+                array('Content-Type: application/json', 'HTTP/1.1 200 OK')
+            );
+        } else {
+            $this->sendOutput(
+                json_encode(array('error' => $this->ErrorDesc)),
+                array('Content-Type: application/json', $this->ErrorHeader)
+            );
+        }
+    }
+
+
+
+
+
+
 
     public function PostComments($postId, $limit = 30)
     {

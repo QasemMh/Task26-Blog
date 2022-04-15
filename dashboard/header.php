@@ -56,7 +56,7 @@ function setActive($page)
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Manage Blog
             </div>
 
             <!-- Nav Item -->
@@ -93,8 +93,46 @@ function setActive($page)
             </li>
 
 
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Manage Website Section
+            </div>
+
+            <!-- Nav Item -->
+            <li class="nav-item <?php echo setActive("Home"); ?>">
+                <a class="nav-link" href="home.php">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Home</span></a>
+            </li>
+
+            <!-- Nav Item -->
+            <li class="nav-item <?php echo setActive("Contact"); ?>">
+                <a class="nav-link" href="contact.php">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Contact</span></a>
+            </li>
+
+            <!-- Nav Item -->
+            <li class="nav-item <?php echo setActive("about"); ?>">
+                <a class="nav-link" href="about-us.php">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>About Us</span></a>
+            </li>
+
+
         </ul>
         <!-- End of Sidebar -->
+
+
+
+
+
+
+
+
+
 
 
 

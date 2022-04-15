@@ -8,7 +8,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
+            <span>Copyright &copy; Clever Mind POB ICT</span>
         </div>
     </div>
 </footer>
@@ -90,6 +90,19 @@
 } ?>
 
 
+<!-- Home -->
+<?php if (!empty(setActive("Home"))) {
+    echo '<script src="api/home.js"></script>';
+} ?>
+<!-- Contact -->
+<?php if (!empty(setActive("Contact"))) {
+    echo '<script src="api/contact.js"></script>';
+} ?>
+<!-- about -->
+<?php if (!empty(setActive("about"))) {
+    echo '<script src="api/about-us.js"></script>';
+} ?>
+
 
 
 
@@ -124,20 +137,34 @@
 
 
         switch (searchTerm) {
-            case "user":
             case "users":
                 location.href = "users.php";
+                break; // item
+            case "category":
+                location.href = "category.php";
+                break; // item
+            case "home":
+                location.href = "home.php";
+                break; // item
+            case "contact":
+                location.href = "contact.php";
+                break; // item
+            case "message":
+                location.href = "userMessage.php";
+                break; // item
+            case "comments":
+                location.href = "postComment.php";
+                break; // item
+            case "index":
+                location.href = "index.php";
+                break; // item
+            case "post":
+                location.href = "post.php";
+                break; // item
+            case "about us":
+                location.href = "about-us.php";
                 break;
-            case "order":
-            case "orders":
-            case "order line":
-            case "order details":
-                location.href = "order.php";
-                break;
-            case "products":
-            case "product":
-                location.href = "product.php";
-                break;
+
 
             default:
                 location.href = "index.php?err=Search Term Not Found Try Again.";

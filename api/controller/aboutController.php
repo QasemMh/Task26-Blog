@@ -60,8 +60,24 @@ class AboutController extends BaseController
         if (strtoupper($this->RequestMethod) == 'POST') {
             try {
                 $aboutModel = new  About();
-                $input = (array) json_decode(file_get_contents('php://input'), TRUE);
+
+                //save image to database and server
+                $path = "";
+                if ($_FILES["path"]) {
+                    $filename = $_FILES["path"]["name"];
+                    $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                    $tempName = $_FILES["path"]["tmp_name"];
+                    $path   = uniqid(true) . "." . $ext;
+                    move_uploaded_file($tempName, "D:\\Program File\\xampp\htdocs\\task26\image\\" . $path);
+                }
+
+                //get text values
+                $input = $_POST;
+                $input += ["path" => $path];
+
                 $isCreated = $aboutModel->create($input);
+
+
 
                 if ($isCreated) {
                     $responseData = json_encode(["message" => "about Created"]);
@@ -102,8 +118,23 @@ class AboutController extends BaseController
         if (strtoupper($this->RequestMethod) == 'POST') {
             try {
                 $aboutModel = new  About();
-                $input = (array) json_decode(file_get_contents('php://input'), TRUE);
+
+                //get text values
+                $input = $_POST;
+                $input += ["path" => $input["path2"]];
+
+                if (isset($_FILES["path"]) && $_FILES["path"]["error"] == UPLOAD_ERR_OK) {
+                    $filename = $_FILES["path"]["name"];
+                    $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                    $tempName = $_FILES["path"]["tmp_name"];
+                    $path   = uniqid(true) . "." . $ext;
+                    move_uploaded_file($tempName, "D:\\Program File\\xampp\htdocs\\task26\image\\" . $path);
+                    $input["path"] = $path;
+                }
+
                 $isUpdate = $aboutModel->update($input);
+
+
 
                 if ($isUpdate) {
                     $responseData = json_encode(["message" => "about Upadted"]);

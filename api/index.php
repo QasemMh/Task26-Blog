@@ -127,6 +127,8 @@ if (CONTROLLER == "category") {
 // api/post/create
 // api/post/update/{id}
 // api/post/delete/{id}
+// api/post/indexWithComments
+// api/post/DetailsWithComments/{id}
 if (CONTROLLER == "post") {
     //require controller
     require_once PROJECT_ROOT_PATH . "\Controller\postController.php";
@@ -189,6 +191,8 @@ if (CONTROLLER == "comments") {
         //if equal create, then create user
         if (ACTION === "create") :
             $comment->Create();
+        elseif (ACTION == "comments_count") :
+            $comment->CommentsCount();
         //else, it is mean the action method(details,update,delete) is call
         // all these methods required {ID}
         else :

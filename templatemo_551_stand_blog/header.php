@@ -1,3 +1,23 @@
+<?php
+
+function setActive($page)
+{
+    return $GLOBALS["page_title"] == $page ? "active" : "";
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,13 +39,9 @@
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-stand-blog.css">
     <link rel="stylesheet" href="assets/css/owl.css">
-    <!--
 
-TemplateMo 551 Stand Blog
 
-https://templatemo.com/tm-551-stand-blog
 
--->
 </head>
 
 <body>
@@ -45,26 +61,26 @@ https://templatemo.com/tm-551-stand-blog
         <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="index.php">
-                    <h2>Stand Blog<em>.</em></h2>
+                    <h2 id="main-logo">Stand Blog<em>.</em></h2>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item <?php echo setActive("index") ?>">
                             <a class="nav-link" href="index.php">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item <?php echo setActive("about") ?>">
                             <a class="nav-link" href="about.php">About Us</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item <?php echo setActive("blog") ?>">
                             <a class="nav-link" href="blog.php">Blog Entries</a>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item <?php echo setActive("contact") ?>">
                             <a class="nav-link" href="contact.php">Contact Us</a>
                         </li>
                     </ul>

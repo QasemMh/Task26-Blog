@@ -98,6 +98,7 @@ class PostController extends BaseController
             );
         }
     }
+    
     public function Create()
     {
         $this->RequestMethod = $_SERVER["REQUEST_METHOD"];

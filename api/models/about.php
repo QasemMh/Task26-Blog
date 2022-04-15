@@ -21,25 +21,24 @@ class About extends Database
     {
 
         if ($this->getAll()->rowCount() > 0) {
-            $this->update($input);
-        } else {
+            $this->delete();
+        }
 
-            $query = "INSERT INTO 
+        $query = "INSERT INTO 
                     aboutus(id, 
                     title,
                     content,
                     path)
                     VALUES(NULL,:title,:content,:path)";
-            // prepare query statement
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(":title", $input["title"]);
-            $stmt->bindParam(":content", $input["content"]);
-            $stmt->bindParam(":path", $input["path"]);
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":title", $input["title"]);
+        $stmt->bindParam(":content", $input["content"]);
+        $stmt->bindParam(":path", $input["path"]);
 
 
-            // execute query
-            return $stmt->execute();
-        }
+        // execute query
+        return $stmt->execute();
     }
 
 

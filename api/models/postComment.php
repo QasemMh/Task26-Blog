@@ -23,6 +23,18 @@ class PostComment extends Database
         return $stmt;
     }
 
+    public function getCommentsCount()
+    {
+        $query = "
+        SELECT COUNT(id) count,post_id FROM post_comment GROUP BY post_id
+        ";
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+        // execute query
+        $stmt->execute();
+        return $stmt;
+    }
+
     public function getBy($id)
     {
 

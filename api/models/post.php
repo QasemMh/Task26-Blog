@@ -4,7 +4,7 @@
 class Post extends Database
 {
 
-    public function getAll()
+    public function getAll($limit)
     {
 
         $query = "
@@ -23,13 +23,17 @@ FROM
 INNER JOIN users u
  ON  p.author_id = u.id
  Inner Join category c On c.id=p.category_id
-  ORDER BY p.createAt DESC";
+  ORDER BY p.createAt DESC limit :limit";
+
         // prepare query statement
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":limit", $limit, PDO::PARAM_INT);
+
         // execute query
         $stmt->execute();
         return $stmt;
     }
+
 
     public function getBy($id)
     {
